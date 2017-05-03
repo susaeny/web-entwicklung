@@ -8,15 +8,18 @@
 
 
     //TEST AREA
-    console.log($this);
-    console.log($this._$track);
+    //console.log($this);
+    //console.log($this._$track);
 
 
     const slider = new Slider({
       min: $this.data('min'), // this will extract the min-data attribute (see index.html) to initialize the slider
       max: $this.data('max'),
       value: $this.data('value'),
-      view: $this
+      view: $this,
+      thumb: $this.find('.thumb'),
+      track: $this.find('.track'),
+      document: $(document)
     });
 
     // subscribe to the change event

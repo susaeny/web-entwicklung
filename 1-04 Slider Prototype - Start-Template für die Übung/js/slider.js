@@ -7,18 +7,18 @@ lib = window.lib || {};
 //------------------------------------ Slider Component  ---------------------------
 
   class Slider {
-    constructor({ min = 0, max = 1, value = 0, view, }) { // {min: 0, max: 10, value: 100} {
+    constructor({ min = 0, max = 1, value = 0, view, thumb, track, document }) { // {min: 0, max: 10, value: 100} {
 
       // TODO: store the constructor args
 
-      let $min = min;
-      let $max = max;
-      let $value = value;
-      const _$view = view;
-      const _$track = _$view.find('.track');
-      const _$thumb = _$view.find('.thumb');
-      const _$document = $(document);
-      let dragOffsetX;
+      this.$min = min;
+      this.$max = max;
+      this._value = value;
+      this._$view = view;
+      this._$thumb = thumb;
+      this._$track = track;
+      this._$document = document;
+      //let dragOffsetX;
 
       // init the state machine
      this._$view.on('mousedown', this._onMouseDown.bind(this));
@@ -82,45 +82,70 @@ lib = window.lib || {};
       // Tip 2: For the sake of brevity, you can implement the other mouse event handlers as inner functions to this method
       console.log(e.pageX);
       console.log(this._$track);
+      console.log(this._$document);
+
+      let $this = this;
+      let dragOffsetX;
+
 
       if(e.target == this._$thumb[0]){
         //1.Fall: click on thumb: keep the distance between thumb and mouse
         //differenz thumb zum äußeren rand
-        dragOffsetX = e.pageX - $thumb.offset().left;
+        dragOffsetX = e.pageX - this._$thumb.offset().left;
       }
-      else if (e.target == _$track[0]){
+      else if (e.target == this._$track[0]){
+        console.log("track clicked!");
         //mouseDown on Track
-        dragOffsetX = _$thumb.width() / 2;
-        //TODO move the thumb
+        dragOffsetX = this._$thumb.width() / 2;
+        //move thumb
         updateThumbPosition(e.pageX);
       }
 
-      $slider.addClass('active');
-      $document.on('mousemove.slider', onMouseMove);
+      this._$view.addClass('active');
+      this._$document.on('mousemove.this._$view', onMouseMove);
       //Beim ersten mal wenn event, kommt es weg
-      $document.one('mouseup.slider', onMouseUp);
+      this._$document.one('mouseup', onMouseUp);
 
       //*$document.on('mousemove.slider', onMouseMove);
       e.preventDefault();
 
-
       function onMouseUp (e) {
         console.log('up');
-        $slider.removeClass('active');
-        $document.off('mousemove.slider', onMouseMove);
-
+        $this._$view.removeClass('active');
+        //e.preventDefault();
       }
 
       function onMouseMove(e) {
         console.log('move');
-        $thumb.css('left', e.pageX - $track.offset().left - dragOffsetX);
+
+        //COPY!!
+        let position = $this._$track.position();
+        let sliderWidth = $this._$view.width();
+        let minX = position.left;
+        let maxX = minX + sliderWidth;
+
+        let finalPosition = e.pageX - $this._$track.offset().left - dragOffsetX;
+
+        //TEST AREA
+        console.log(position);
+        console.log(sliderWidth);
+        console.log(minX);
+        console.log(maxX);
+        console.log(finalPosition);
+        console.log($this._$track.offset().left - dragOffsetX);
+
+        //If within the slider's width, follow it along
+        if (finalPosition >= minX && finalPosition <= maxX) {
+          $this._$thumb.css('left', e.pageX - $this._$track.offset().left - dragOffsetX);
+        }
+        //console.log('move');
         e.preventDefault();
       }
 
       function updateThumbPosition(pageX) {
-        let position = pageX - $track.offset().left - dragOffsetX;
+        let position = pageX - $this._$track.offset().left - dragOffsetX;
 
-        $thumb.css('left', position);
+        $this._$thumb.css('left', position);
       }
     };
   }
