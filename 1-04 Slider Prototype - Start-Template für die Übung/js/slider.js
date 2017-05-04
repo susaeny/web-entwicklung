@@ -40,6 +40,7 @@ lib = window.lib || {};
 
       // TODO: limit value to the range between min and max
 
+
       // set the backing field
       this._value = v;
 
@@ -88,6 +89,7 @@ lib = window.lib || {};
       let dragOffsetX;
 
 
+
       if(e.target == this._$thumb[0]){
         //1.Fall: click on thumb: keep the distance between thumb and mouse
         //differenz thumb zum äußeren rand
@@ -101,8 +103,9 @@ lib = window.lib || {};
         updateThumbPosition(e.pageX);
       }
 
+      //TODO: CHECK FUNCTION CALL
       this._$view.addClass('active');
-      this._$document.on('mousemove.this._$view', onMouseMove);
+      this._$document.on('mousemove', onMouseMove);
       //Beim ersten mal wenn event, kommt es weg
       this._$document.one('mouseup', onMouseUp);
 
@@ -112,13 +115,16 @@ lib = window.lib || {};
       function onMouseUp (e) {
         console.log('up');
         $this._$view.removeClass('active');
+
+
+        $this._$document.off('mousemove', onMouseMove);
         //e.preventDefault();
       }
 
       function onMouseMove(e) {
         console.log('move');
 
-        //COPY!!
+        //crop move area
         let position = $this._$track.position();
         let sliderWidth = $this._$view.width();
         let minX = position.left;
@@ -138,6 +144,11 @@ lib = window.lib || {};
         if (finalPosition >= minX && finalPosition <= maxX) {
           $this._$thumb.css('left', e.pageX - $this._$track.offset().left - dragOffsetX);
         }
+
+        //MouseUP
+       // this._$document.one('mouseup', onMouseUp);
+
+
         //console.log('move');
         e.preventDefault();
       }
