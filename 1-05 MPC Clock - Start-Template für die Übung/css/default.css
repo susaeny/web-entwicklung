@@ -1,0 +1,57 @@
+/* ------- DIGITAL - CLOCK - STYLES ------ */
+
+.digitalView {
+    font-family: "Courier New";
+    font-size: 3em;
+    display: flex;
+    justify-content: center;
+    border: 2px solid hsl(0, 0%, 0%);
+    border-radius: 100px;
+    padding: 0.4vw;
+    margin: 5vh 25vw 5vh 25vw;
+}
+
+/* ------- ANALOG - CLOCK - STYLES ------ */
+svg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hour {
+    fill: none;
+    stroke: hsl(200, 40%, 50%);
+    stroke-width: 9;
+    transform-origin: 200px 200px;
+
+}
+
+.second {
+    fill: none;
+    stroke: hsl(15, 80%, 50%);
+    stroke-width: 4;
+
+    transform-origin: 200px 200px;
+
+    /*animation: rotate 1s;*/
+}
+
+.minute {
+    fill: none;
+    stroke: hsl(200, 80%, 30%);
+    stroke-width: 9;
+    transform-origin: 200px 200px;
+
+}
+
+
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+       transform: rotate(6deg);
+    }
+}
