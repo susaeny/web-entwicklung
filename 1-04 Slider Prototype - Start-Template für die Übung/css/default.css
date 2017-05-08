@@ -10,21 +10,32 @@ body {
 
 .thumb {
     width: 20px;
-    height: 20px;
-    background-color: darkblue;
+    height: 100%;
+
+    background-color: hsl(50, 50%, 20%);
     position: absolute;
     top: 0;
     left: 0;
+    border: 1px solid rgba(0,0,0,0);
+    transition-property: color, left;
 }
 
+
 .slider.active .thumb {
-    background-color: red;
+    background-color: hsl(50, 50%, 50%);
 }
 
 .track {
     width: 100%;
     height: 100%;
-    background-color: gray;
+    background-color: hsl(50, 50%, 70%);
+    border: 1px solid rgba(0,0,0,0);
+    /*background: linear-gradient(45deg, rgb(204, 185, 102) 1%,rgba(127,116,63,1) 49%,rgba(178,163,89,1) 98%, rgb(204, 184, 102) 98%);
+    */
+}
+
+.slider.active .track {
+    border: 1px solid hsl(50, 50%, 50%);
 }
 
 .slider-testcase {
@@ -35,35 +46,8 @@ body {
     margin-top: 20px;
 }
 
-/*
-.slider {
-    margin: 100px auto;
-    position: relative;
-    width: 300px;
-    height: 30px;
+.horizontalTranslate {
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    transition-timing-function: ease-out;
 }
-
-.track {
-    height: 100%;
-    width: 100%;
-    background-color: hsl(50, 50%, 60%);
-}
-
-.thumb {
-    width: 30px;
-    height: 100%;
-    background-color: hsl(50, 50%, 30%);
-
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.slider.active .thumb {
-    background-color: hsl(50, 50%, 50%);
-}
-
-.slider.active .track {
-    border: 1px solid hsl(50, 50%, 90%);
-}
-*/

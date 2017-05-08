@@ -6,12 +6,6 @@
   $('.slider').each(function () {
     const $this = $(this);
 
-
-    //TEST AREA
-    //console.log($this);
-    //console.log($this._$track);
-
-
     const slider = new Slider({
       min: $this.data('min'), // this will extract the min-data attribute (see index.html) to initialize the slider
       max: $this.data('max'),
@@ -19,16 +13,19 @@
       view: $this,
       thumb: $this.find('.thumb'),
       track: $this.find('.track'),
-      document: $(document)
+      document: $(document) //TODO: make var in MouesDown
     });
 
     // subscribe to the change event
     $(slider).on('change', function()  { // since we use querys event engine, we must wrap slider in a jquery object
       $this.siblings('.label-value').html(Math.floor(slider.value)); // get the slider's value an output it
+
+      console.log("in change");
+
     });
 
     // test buttons: find all buttons which are siblings to the slider, and, if pressed, set the slider to the respective value
-    $this.siblings('button').on('click', function() {
+    $this.siblings('button').on('click', function(e) {
       slider.value = $(this).html();
       e.preventDefault();
     });

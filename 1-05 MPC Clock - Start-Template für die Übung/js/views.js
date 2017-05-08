@@ -13,8 +13,7 @@ lib = window.lib || {};
     }
 
     render() {
-
-      let $sec = this.model.mseconds / 1000 + this.model.seconds;
+      let $sec = this.model.milSeconds / 1000 + this.model.seconds;
       let $secDeg = `rotate(${$sec * 6}deg)`;
 
       let $min = $sec / 60 + this.model.minutes;
@@ -23,12 +22,11 @@ lib = window.lib || {};
       let $hour = $min / 60 + this.model.hours;
       let $hourDeg = `rotate(${$hour * 30}deg)`;
 
-      //let rotation = `rotate(${$secDeg}deg)`;
       this.$secPointer.css('transform', $secDeg);
       this.$minPointer.css('transform', $minDeg);
       this.$hourPointer.css('transform', $hourDeg);
-
     }
+
 
   }
 
@@ -41,7 +39,6 @@ lib = window.lib || {};
       $(model).on('change', this.render.bind(this));
     }
 
-    //TODO: Exception Handling when Number under 10
     render() {
 
       let currentHour = this.model.hours;

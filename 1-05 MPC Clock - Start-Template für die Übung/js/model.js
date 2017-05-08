@@ -6,21 +6,20 @@ lib = window.lib || {};
       this.date = null;
       this._timezoneOffset = 2;
       this._updateTime();
-      //setInterval(this._updateTime.bind(this), 1000);
-      //set interval to 10msec (its enough for >60 fps :D)
+      //setInterval(this._updateTime.bind(this), 1000); -> every second / 1th version
+      //set interval to 10msec (its enough for "fluid animation")
       setInterval(this._updateTime.bind(this), 10);
     }
 
    set timezoneOffset(offset) {
-      //return this._timezoneOffset;
       this._timezoneOffset = offset;
     }
 
-
     get timezoneOffset() {
+      return this._timezoneOffset;
     }
 
-    get mseconds() {
+    get milSeconds() {
       return this.date.getUTCMilliseconds();
     }
 
@@ -33,8 +32,7 @@ lib = window.lib || {};
     }
 
     get hours() {
-      //return this.date.getUTCHours() + this._timezoneOffset;
-      return this.date.getUTCHours() + this._zoneOffset();
+      return this.date.getUTCHours() + this.timezoneOffset;
     }
 
     // ----- private -----
@@ -44,9 +42,9 @@ lib = window.lib || {};
       $(this).trigger('change');
     }
 
-    _zoneOffset() {
+    /*_zoneOffset() {
       return this._timezoneOffset;
-    }
+    }*/
   }
 
   lib.ClockModel = ClockModel;
