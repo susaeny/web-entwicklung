@@ -18,15 +18,19 @@
 
     // subscribe to the change event
     $(slider).on('change', function()  { // since we use querys event engine, we must wrap slider in a jquery object
-      $this.siblings('.label-value').html(Math.floor(slider.value)); // get the slider's value an output it
 
-      console.log("in change");
+      //only want 2 decimal digits if range is under 10, everything above interger
+      if((slider.$max - slider.$min) >= 10) {
+        $this.siblings('.label-value').html(Math.floor(slider.value)); // get the slider's value an output it
+      } else {
+        $this.siblings('.label-value').html(Math.round(slider.value * 100) / 100); // get the slider's value an output it
+      }
 
     });
 
     // test buttons: find all buttons which are siblings to the slider, and, if pressed, set the slider to the respective value
     $this.siblings('button').on('click', function(e) {
-      slider.value = $(this).html();
+      slider.value = parseFloat($(this).html());
       e.preventDefault();
     });
   });
